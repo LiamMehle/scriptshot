@@ -1,5 +1,5 @@
 # scriptshot
-A configurable python script that takes screenshots in the in the background.
+A configurable cross-platform python script that takes screenshots in the in the background.
 
 ## What?
 This is (as mentioned above) a script intended to take screenshots of a game when action is detected in the form of a left-click or similar button press/mouse movement/action.
