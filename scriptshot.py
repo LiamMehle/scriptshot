@@ -12,11 +12,12 @@ from pynput.mouse import Listener, Button
 
 # ----------------------------------------------<[ CONFIG ]>-----------------------------------------------
 
-USERNAME       =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
-SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
-DEFAULT_BURST_DELAY = 1.0                                        # delay between screenshots
-DEFAULT_BURST_SIZE  = 4                                          # number of screenshots after trigger
+USERNAME                =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
+SCREENSHOT_DIR          = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
+DEFAULT_BURST_DELAY     = 1.0                                        # delay between screenshots
+DEFAULT_BURST_SIZE      = 4                                          # number of screenshots after trigger
 
+# use steam for screenshotting
 STEAM_SCREENSHOT        = False
 STEAM_SCREENSHOT_HOTKEY = 'f12'
 
@@ -126,18 +127,19 @@ class Screenshotter:
             if xpos < 0 or ypos < 0:
                 return
 
-            if (button is Button.left) and (pressed is True):
+            if (button == Button.left) and (pressed is True):
                 self.triggered = True
 
-        (terminator_thread := Thread(target=self.terminator)).start()
-        asio.Task(self.screenshotter())
+        terminator_task = asio.to_thread(self.terminator)
+        screenshotter_task = asio.Task(self.screenshotter())
 
         with Listener(on_click=on_click) as listener:
             while not self.terminate:
                 await asio.sleep(.25)
             listener.stop()
 
-        terminator_thread.join()
+        await terminator_task
+        await screenshotter_task
 
     async def screenshotter(self):
         '''
@@ -154,7 +156,7 @@ class Screenshotter:
                 log(f'taking screenshot burst at {currenttime}')
                 await self.scs_burst()
 
-    def terminator(self):
+    async def terminator(self):
         '''listens for input and signals end of program when newline detected'''
         input()
         self.terminate = True
