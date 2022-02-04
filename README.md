@@ -26,3 +26,6 @@ Afterwards, running `py scriptshot.py` directly will suffice.
 run `py uninstall.py`.
 
 The screenshots will remain.
+
+## To-Do:
+- take screenshot of the game
