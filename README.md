@@ -23,5 +23,6 @@ To make sure the reuqired python modules are installed, run `py installer.py`.
 Afterwards, running `py scriptshot.py` directly will suffice.
 
 # Uninstall:
-run `py uninstall.py`
+run `py uninstall.py`.
+
 The screenshots will remain.
