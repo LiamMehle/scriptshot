@@ -33,7 +33,7 @@ class Screenshotter:
     '''class for re-use purpose'''
 
     @staticmethod
-    def enumerate_dir(directory: str):
+    def enumerate_dir(directory: str) -> [str]:
         '''enumerates directory or crates it if it doesn't exist'''
         try:
             filenames = os.listdir(directory)
@@ -165,7 +165,7 @@ class Screenshotter:
         '''user-friendly wrapper'''
         asio.run(self.main())
 
-def run():
+def run() -> None:
     '''starts up the script.'''
     log('running')
     Screenshotter().run()
