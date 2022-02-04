@@ -1,6 +1,9 @@
+'''uninstalls the script and performs cleanup'''
+
 import subprocess
 import sys
 from threading import Thread
+import os
 
 def uninstall(package):
     '''uninstalls the package'''
@@ -8,11 +11,9 @@ def uninstall(package):
 
 packages = ('pynput', 'pyautogui')
 
-threads = [Thread(target=install, args=(package,)) for package in packages]
+threads = [Thread(target=uninstall, args=(package,)) for package in packages]
 for thread in threads:
     thread.start()
-
-import os
 
 for thread in threads:
     thread.join()

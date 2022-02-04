@@ -9,6 +9,8 @@ from threading import Thread
 import pyautogui as pyg
 from pynput.mouse import Listener, Button
 
+print('starting up scriptshot')
+
 USERNAME       =  '<name goes here>'
 #SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # not misspelled
 SCREENSHOT_DIR =  '/home/wolf/git/personal/scriptshot' # not misspelled
@@ -126,7 +128,8 @@ class Screenshotter:
     async def screenshotter(self):
         '''
             handles the screenshotting outside of a dedicated signal handler
-            think of this as a "worker coroutine"
+            think of this as a "worker coroutine". Sleeping inside the signal
+            hanlder causes untold lag even even if all cpu cores are idling.
         '''
         while not self.terminate:
             await asio.sleep(.25)
@@ -146,7 +149,11 @@ class Screenshotter:
         asio.run(self.main())
 
 def run():
+    '''starts up the script.'''
     Screenshotter().run()
 
+print('ready')
+
 if __name__ == '__main__':
+    print('starting up')
     run()

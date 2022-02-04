@@ -1,3 +1,5 @@
+'''installs the neccessary packages and runs the script'''
+
 import subprocess
 import sys
 from threading import Thread
@@ -14,6 +16,9 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
+# importing this any sooner would've errored due to missing packages
+# pylint: disable=C0413
 import scriptshot
+# pylint: enable=C0413
 
 scriptshot.run()
