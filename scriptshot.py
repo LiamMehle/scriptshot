@@ -17,6 +17,9 @@ SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output 
 DEFAULT_BURST_DELAY = 1.0                                        # delay between screenshots
 DEFAULT_BURST_SIZE  = 4                                          # number of screenshots after trigger
 
+STEAM_SCREENSHOT        = False
+STEAM_SCREENSHOT_HOTKEY = 'f12'
+
 # ---------------------------------------------------------------------------------------------------------
 
 NAME = 'scriptshot'
@@ -99,9 +102,12 @@ class Screenshotter:
         collection_number = self.get_max_collection_number() + 1
         threads           = []
         for delay in delay_set:
-            time.sleep(delay)
-            screenshot = pyg.screenshot()
-            threads.append(asio.to_thread(self.save_screenshot, screenshot, collection_number))
+            asio.sleep(delay)
+            if STEAM_SCREENSHOT:
+                pyg.hotkey(STEAM_SCREENSHOT_HOTKEY)
+            else:
+                screenshot = pyg.screenshot()
+                threads.append(asio.to_thread(self.save_screenshot, screenshot, collection_number))
 
         for thr in threads:
             await thr
