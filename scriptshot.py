@@ -10,12 +10,14 @@ import datetime
 import pyautogui as pyg
 from pynput.mouse import Listener, Button
 
-USERNAME       =  '<name goes here>'
-SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic]
-DEFAULT_BURST_DELAY = 1.0
-DEFAULT_BURST_SIZE  = 4
+# ----------------------------------------------<[ CONFIG ]>-----------------------------------------------
 
-# ---------------------------------------------------------------------------------
+USERNAME       =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
+SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
+DEFAULT_BURST_DELAY = 1.0                                        # delay between screenshots
+DEFAULT_BURST_SIZE  = 4                                          # number of screenshots after trigger
+
+# ---------------------------------------------------------------------------------------------------------
 
 NAME = 'scriptshot'
 
