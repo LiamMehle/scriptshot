@@ -13,8 +13,7 @@ from pynput.mouse import Listener, Button
 # ----------------------------------------------<[ CONFIG ]>-----------------------------------------------
 
 USERNAME       =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
-#SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
-SCREENSHOT_DIR = f'scriptshot/shots/' # [sic] output directory
+SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
 DEFAULT_BURST_DELAY = 1.0                                        # delay between screenshots
 DEFAULT_BURST_SIZE  = 4                                          # number of screenshots after trigger
 
