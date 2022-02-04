@@ -13,7 +13,8 @@ from pynput.mouse import Listener, Button
 # ----------------------------------------------<[ CONFIG ]>-----------------------------------------------
 
 USERNAME       =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
-SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
+#SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
+SCREENSHOT_DIR = f'scriptshot/shots/' # [sic] output directory
 DEFAULT_BURST_DELAY = 1.0                                        # delay between screenshots
 DEFAULT_BURST_SIZE  = 4                                          # number of screenshots after trigger
 
@@ -102,7 +103,7 @@ class Screenshotter:
         collection_number = self.get_max_collection_number() + 1
         threads           = []
         for delay in delay_set:
-            asio.sleep(delay)
+            await asio.sleep(delay)
             if STEAM_SCREENSHOT:
                 pyg.hotkey(STEAM_SCREENSHOT_HOTKEY)
             else:
@@ -126,7 +127,7 @@ class Screenshotter:
             if xpos < 0 or ypos < 0:
                 return
 
-            if button == Button.left and pressed is True:
+            if (button is Button.left) and (pressed is True):
                 self.triggered = True
 
         (terminator_thread := Thread(target=self.terminator)).start()
