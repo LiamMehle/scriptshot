@@ -38,7 +38,7 @@ class Screenshotter:
             filenames = os.listdir(directory)
         return filenames
 
-    def __init__(self):
+    def __init__(self) -> None:
         '''(default-) init (class variables)'''
         self.username       =  USERNAME
         self.screenshot_dir = SCREENSHOT_DIR
@@ -46,7 +46,7 @@ class Screenshotter:
         self.default_burst_delay = DEFAULT_BURST_DELAY
         self.default_burst_delay = DEFAULT_BURST_SIZE
 
-        self.default_delay_set = lambda: [DEFAULT_BURST_DELAY]*max(DEFAULT_BURST_SIZE-1, 0)
+        self.get_default_delay_set = lambda: [DEFAULT_BURST_DELAY]*max(DEFAULT_BURST_SIZE-1, 0)
 
     @staticmethod
     def filename_to_indicies(filename: str) -> (int, int):
@@ -94,7 +94,7 @@ class Screenshotter:
     async def scs_burst(self, delay_set: [float] = None) -> None:
         '''takes a configurable "burst" of screenshots'''
         if delay_set is None:
-            delay_set = self.default_delay_set()
+            delay_set = self.get_default_delay_set()
         delay_set         = [0, *delay_set]
         collection_number = self.get_max_collection_number() + 1
         threads           = []
@@ -115,7 +115,7 @@ class Screenshotter:
 
     async def main(self):
         '''main, top-level function'''
-        def on_click(xpos, ypos, button, pressed):
+        def on_click(xpos: int, ypos: int, button, pressed):
             '''on mouse click'''
             if xpos < 0 or ypos < 0:
                 return
