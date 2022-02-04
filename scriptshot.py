@@ -2,26 +2,26 @@
     a small script that takes a configurable number of screenshots on and after left click
 '''
 
-import time
 import os
 import asyncio as asio
-from threading import Thread
 import datetime
 import pyautogui as pyg
 from pynput.mouse import Listener, Button
 
-# ----------------------------------------------<[ CONFIG ]>-----------------------------------------------
-
-USERNAME                =  '<name goes here>' # your username, used only for determining `SCREENSHOT_DIR`
-SCREENSHOT_DIR          = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic] output directory
-DEFAULT_BURST_DELAY     = 1.0                                        # delay between screenshots
-DEFAULT_BURST_SIZE      = 4                                          # number of screenshots after trigger
+# ----------------------------------------------<[ CONFIG ]>--------------------
+# USERNAME               # your windows username
+# SCREENSHOT_DIR         # [sic] output directory
+# DEFAULT_BURST_DELAY    # delay between screenshots
+# DEFAULT_BURST_SIZE     # number of screenshots after trigger
+USERNAME                =  '<name goes here>'
+SCREENSHOT_DIR          = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots'
+DEFAULT_BURST_DELAY     = 1.0
+DEFAULT_BURST_SIZE      = 4
 
 # use steam for screenshotting
 STEAM_SCREENSHOT        = False
 STEAM_SCREENSHOT_HOTKEY = 'f12'
-
-# ---------------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 NAME = 'scriptshot'
 
