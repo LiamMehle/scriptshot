@@ -1,25 +1,28 @@
 '''uninstalls the script and performs cleanup'''
 
-import subprocess
-import sys
-from threading import Thread
 import os
+import package_handler
 
-def uninstall(package):
-    '''uninstalls the package'''
-    subprocess.check_call([sys.executable, '-m', 'pip', 'remove', package])
+NAME = 'uninstaller'
+
+def log(msg: str) -> None:
+    '''logging function to replace print()'''
+    print(f'[{NAME}] {msg}')
 
 packages = ('pynput', 'pyautogui')
 
-threads = [Thread(target=uninstall, args=(package,)) for package in packages]
-for thread in threads:
-    thread.start()
+log('uninstalling packages')
+package_handler.uninstall(packages)
+log('done')
+log('deleting scriptshot')
 
-for thread in threads:
-    thread.join()
 
 # delete all files
 for file in os.listdir('.'):
     os.remove(file)
-# delete the folder
+
+log('done')
+log('removing folder')
 os.rmdir('.')
+log('done')
+log('goodbye')

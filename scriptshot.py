@@ -6,16 +6,22 @@ import time
 import os
 import asyncio as asio
 from threading import Thread
+import datetime
 import pyautogui as pyg
 from pynput.mouse import Listener, Button
 
-print('starting up scriptshot')
-
 USERNAME       =  '<name goes here>'
-#SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # not misspelled
-SCREENSHOT_DIR =  '/home/wolf/git/personal/scriptshot' # not misspelled
+SCREENSHOT_DIR = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots' # [sic]
 DEFAULT_BURST_DELAY = 1.0
 DEFAULT_BURST_SIZE  = 4
+
+# ---------------------------------------------------------------------------------
+
+NAME = 'scriptshot'
+
+def log(msg: str) -> None:
+    '''logging function to replace print()'''
+    print(f'[{NAME}] {msg}')
 
 class Screenshotter:
     '''class for re-use purpose'''
@@ -136,7 +142,8 @@ class Screenshotter:
             if self.triggered:
                 # intended behaveour: if triggered mid-burst, continue with another burst
                 self.triggered = False
-                print('taking screenshot burst')
+                currenttime = datetime.datetime.now().strftime('%a %H:%M:%S')
+                log(f'taking screenshot burst at {currenttime}')
                 await self.scs_burst()
 
     def terminator(self):
@@ -150,10 +157,8 @@ class Screenshotter:
 
 def run():
     '''starts up the script.'''
+    log('running')
     Screenshotter().run()
 
-print('ready')
-
 if __name__ == '__main__':
-    print('starting up')
     run()

@@ -1,24 +1,25 @@
 '''installs the neccessary packages and runs the script'''
 
-import subprocess
-import sys
-from threading import Thread
+import package_handler
+NAME = 'installer'
 
-def install(package):
-    '''installs the package'''
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+def log(msg: str) -> None:
+    '''logging function to replace print()'''
+    print(f'[{NAME}] {msg}')
 
 packages = ('pynput', 'pyautogui')
 
-threads = [Thread(target=install, args=(package,)) for package in packages]
-for thread in threads:
-    thread.start()
-for thread in threads:
-    thread.join()
+log('installing packages')
+package_handler.install(packages)
+log('done')
+log('starting up scriptshot')
 
 # importing this any sooner would've errored due to missing packages
 # pylint: disable=C0413
 import scriptshot
 # pylint: enable=C0413
+
+log('done')
+log('running scriptshot')
 
 scriptshot.run()
