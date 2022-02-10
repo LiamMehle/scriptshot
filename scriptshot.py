@@ -15,11 +15,11 @@ from pynput.mouse import Listener, Button
 # DEFAULT_BURST_SIZE     # number of screenshots after trigger
 USERNAME                =  '<name goes here>'
 SCREENSHOT_DIR          = f'C:\\Users\\{USERNAME}\\Pictures\\scriptshots'
-DEFAULT_BURST_DELAY     = 1.0
+DEFAULT_BURST_DELAY     = 2.0
 DEFAULT_BURST_SIZE      = 4
 
 # use steam for screenshotting
-STEAM_SCREENSHOT        = False
+STEAM_SCREENSHOT        = True
 STEAM_SCREENSHOT_HOTKEY = 'f12'
 # -------------------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ class Screenshotter:
                 pyg.hotkey(STEAM_SCREENSHOT_HOTKEY)
             else:
                 screenshot = pyg.screenshot()
-                threads.append(asio.to_thread(self.save_screenshot, screenshot, collection_number))
+                threads.append(asio.Task(asio.to_thread(self.save_screenshot, screenshot, collection_number)))
 
         for thr in threads:
             await thr
@@ -130,7 +130,7 @@ class Screenshotter:
             if (button == Button.left) and (pressed is True):
                 self.triggered = True
 
-        terminator_task = asio.to_thread(self.terminator)
+        terminator_task = asio.Task(asio.to_thread(self.terminator))
         screenshotter_task = asio.Task(self.screenshotter())
 
         with Listener(on_click=on_click) as listener:
